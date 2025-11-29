@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новогодний Кроссворд</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a3a, #0d1b2a);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Снежинки */
+        .snowflake {
+            position: absolute;
+            top: -20px;
+            color: #e0e0ff;
+            font-size: 20px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            user-select: none;
+            z-index: -1;
+            animation: fall linear forwards;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(90deg, #c0392b, #8e44ad, #27ae60);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.15);
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -80px;
+            right: -80px;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1.5px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .crossword-container {
+            background: rgba(25, 40, 55, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border: 2px solid #2c3e50;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(11, 40px);
+            gap: 2px;
+            background: #1a2530;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .cell {
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            border: 1px solid #34495e;
+            transition: all 0.2s ease;
+        }
+        
+        .cell.black {
+            background: #1a2530;
+        }
+        
+        .cell input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            color: #f1c40f;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            outline: none;
+            text-transform: uppercase;
+        }
+        
+        .cell input:focus {
+            background: rgba(241, 196, 15, 0.2);
+        }
+        
+        .cell-number {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            font-size: 0.6rem;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .clues-container {
+            background: rgba(25, 40, 55, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border: 2px solid #2c3e50;
+            min-width: 300px;
+        }
+        
+        .clues-section {
+            margin-bottom: 25px;
+        }
+        
+        .clues-section h2 {
+            color: #27ae60;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #c0392b;
+            font-size: 1.5rem;
+        }
+        
+        .clue {
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            background: rgba(44, 62, 80, 0.6);
+            border-radius: 8px;
+            transition: background 0.3s;
+            cursor: pointer;
+            display: flex;
+        }
+        
+        .clue:hover {
+            background: rgba(52, 73, 94, 0.8);
+        }
+        
+        .clue-number {
+            color: #f1c40f;
+            font-weight: bold;
+            margin-right: 10px;
+            min-width: 20px;
+        }
+        
+        .instructions {
+            background: rgba(41, 128, 185, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .instructions h3 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .grid {
+                grid-template-columns: repeat(11, 30px);
+            }
+            
+            .cell {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .cell input {
+                font-size: 1.1rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(11, 25px);
+            }
+            
+            .cell {
+                width: 25px;
+                height: 25px;
+            }
+            
+            .cell input {
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Снежинки -->
+    <div id="snowflakes"></div>
+    
+    <div class="container">
+        <header>
+            <h1>🎄 Новогодний Кроссворд 🎄</h1>
+            <p class="subtitle">Разгадайте кроссворд в честь праздника! Все слова связаны с Новым годом.</p>
+        </header>
+        
+        <div class="content">
+            <div class="crossword-container">
+                <div class="grid" id="crossword-grid">
+                    <!-- Сетка будет сгенерирована JavaScript -->
+                </div>
+            </div>
+            
+            <div class="clues-container">
+                <div class="clues-section">
+                    <h2>Вопросы</h2>
+                    <div id="clues-list">
+                        <!-- Вопросы будут добавлены здесь -->
+                    </div>
+                </div>
+                
+                <div class="instructions">
+                    <h3>Как играть:</h3>
+                    <ul>
+                        <li>Кликните на ячейку, чтобы начать ввод</li>
+                        <li>Используйте клавиши со стрелками для перемещения</li>
+                        <li>Вводите только русские буквы</li>
+                        <li>Попробуйте отгадать все слова!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>С Новым Годом! 🥂 | Праздничный кроссворд 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Данные кроссворда
+        const words = [
+            { word: "ЁЛКА", clue: "Главное новогоднее дерево", startRow: 0, startCol: 4, direction: "across" },
+            { word: "ДЕДМОРОЗ", clue: "Сказочный дедушка, приносящий подарки", startRow: 2, startCol: 0, direction: "across" },
+            { word: "СНЕГОВИК", clue: "Зимняя игрушка из снега", startRow: 4, startCol: 0, direction: "across" },
+            { word: "ХЛОПУШКА", clue: "Праздничный фейерверк в руках", startRow: 6, startCol: 0, direction: "across" },
+            { word: "МЁДОВИК", clue: "Сладкий праздничный торт (часто на Новый год)", startRow: 8, startCol: 0, direction: "across" },
+            { word: "САЛЮТ", clue: "Праздничный огненный фейерверк", startRow: 0, startCol: 10, direction: "down" },
+            { word: "НОВОГОДНИЙ", clue: "Относящийся к празднику 1 января", startRow: 0, startCol: 0, direction: "down" },
+            { word: "МАСКА", clue: "Атрибут карнавального костюма", startRow: 0, startCol: 8, direction: "down" },
+            { word: "ШАМПАНСКОЕ", clue: "Праздничный игристый напиток", startRow: 1, startCol: 2, direction: "down" },
+            { word: "ПОДАРОК", clue: "То, что ждут от Деда Мороза", startRow: 1, startCol: 6, direction: "down" }
+        ];
+        
+        const grid = Array(11).fill().map(() => Array(11).fill(null));
+        const numbering = Array(11).fill().map(() => Array(11).fill(0));
+        let currentNumber = 1;
+        
+        // Заполнение сетки словами
+        words.forEach(word => {
+            const { word: w, startRow, startCol, direction } = word;
+            
+            // Назначаем номер, если ячейка пустая или первый символ слова
+            if (numbering[startRow][startCol] === 0) {
+                numbering[startRow][startCol] = currentNumber++;
+            }
+            
+            for (let i = 0; i < w.length; i++) {
+                if (direction === "across") {
+                    grid[startRow][startCol + i] = { 
+                        letter: w[i], 
+                        number: i === 0 ? numbering[startRow][startCol] : null,
+                        direction: "across"
+                    };
+                } else {
+                    grid[startRow + i][startCol] = { 
+                        letter: w[i], 
+                        number: i === 0 ? numbering[startRow][startCol] : null,
+                        direction: "down"
+                    };
+                }
+            }
+        });
+        
+        // Создание HTML сетки
+        const gridElement = document.getElementById('crossword-grid');
+        for (let row = 0; row < 11; row++) {
+            for (let col = 0; col < 11; col++) {
+                const cell = document.createElement('div');
+                
+                if (grid[row][col] === null) {
+                    // Черная ячейка
+                    cell.classList.add('cell', 'black');
+                } else {
+                    // Белая ячейка с возможностью ввода
+                    cell.classList.add('cell');
+                    
+                    // Добавляем номер, если он есть
+                    if (grid[row][col].number) {
+                        const numberSpan = document.createElement('span');
+                        numberSpan.classList.add('cell-number');
+                        numberSpan.textContent = grid[row][col].number;
+                        cell.appendChild(numberSpan);
+                    }
+                    
+                    // Добавляем поле ввода
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.maxLength = 1;
+                    input.dataset.row = row;
+                    input.dataset.col = col;
+                    
+                    // Обработка ввода
+                    input.addEventListener('input', function(e) {
+                        let char = e.target.value.toUpperCase();
+                        // Разрешаем только русские буквы
+                        if (/^[А-ЯЁ]*$/.test(char)) {
+                            e.target.value = char;
+                        } else {
+                            e.target.value = '';
+                        }
+                        
+                        // Автоматический переход к следующей ячейке
+                        const nextCell = document.querySelector(`input[data-row="${row}"][data-col="${col+1}"]`);
+                        if (nextCell && char) {
+                            nextCell.focus();
+                        }
+                    });
+                    
+                    // Обработка навигации
+                    input.addEventListener('keydown', function(e) {
+                        if (e.key === 'ArrowRight') {
+                            const next = document.querySelector(`input[data-row="${row}"][data-col="${col+1}"]`);
+                            if (next) next.focus();
+                        } else if (e.key === 'ArrowLeft') {
+                            const prev = document.querySelector(`input[data-row="${row}"][data-col="${col-1}"]`);
+                            if (prev) prev.focus();
+                        } else if (e.key === 'ArrowDown') {
+                            const next = document.querySelector(`input[data-row="${row+1}"][data-col="${col}"]`);
+                            if (next) next.focus();
+                        } else if (e.key === 'ArrowUp') {
+                            const prev = document.querySelector(`input[data-row="${row-1}"][data-col="${col}"]`);
+                            if (prev) prev.focus();
+                        }
+                    });
+                    
+                    cell.appendChild(input);
+                }
+                gridElement.appendChild(cell);
+            }
+        }
+        
+        // Создание списка вопросов
+        const cluesList = document.getElementById('clues-list');
+        words.forEach((word, index) => {
+            const clueDiv = document.createElement('div');
+            clueDiv.classList.add('clue');
+            clueDiv.innerHTML = `<span class="clue-number">${index + 1}.</span> ${word.clue}`;
+            cluesList.appendChild(clueDiv);
+        });
+        
+        // Генерация снежинок
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakes = ['❄', '❅', '❆'];
+            
+            for (let i = 0; i < 30; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                snowflake.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+        
+        // Запуск анимации снежинок
+        createSnowflakes();
+    </script>
+</body>
+</html>
