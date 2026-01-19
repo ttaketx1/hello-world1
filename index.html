@@ -4,49 +4,95 @@
     <meta charset="UTF-8">
     <title>Решённые шифры</title>
     <style>
-        body {
-            background-color: #1B1C1D; /* Темно-серый фон */
-            color: white; /* Белый текст */
-            font-family: 'Arial', sans-serif;
-            padding: 20px;
-            line-height: 1.6;
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1B1C1D;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            padding: 2rem;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
         h1 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            animation: slideDown 1s ease-in-out forwards;
         }
-        
-        .container {
-            max-width: 800px;
-            margin: auto;
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
         }
-        
-        p {
-            margin-bottom: 20px;
+
+        li {
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-in-out forwards;
         }
-        
-        pre {
+
+        strong {
+            font-weight: bold;
+        }
+
+        code {
             background-color: #2F3136;
+            padding: 0.5rem;
             border-radius: 5px;
-            padding: 10px;
-            overflow-x: auto;
+            display: inline-block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Решённые шифры</h1>
-    
-    <!-- Ответы -->
-    <p><strong>Ключи шифрования:</strong></p>
-    <pre>a) 17<br>b) 28</pre>
-    
-    <p><strong>Расшифровки:</strong></p>
-    <pre>а) ОДГБЖР<br>б) ЯУТОЙ</pre>
-    
-    <p><strong>Моя фамилия в зашифрованном виде:</strong></p>
-    <pre>РЛКЭЧЛ</pre>
+    <ul>
+        <li><strong>Ключи шифрования:</strong></li>
+        <li>- Апельсин → Сацьнвщю: <code>k = 17</code></li>
+        <li>- Абрикос → Ыьлгейм: <code>k = 28</code></li>
+        <br>
+        <li><strong>Расшифровки:</strong></li>
+        <li>- Фхнзкч: <code>Одгбжр</code></li>
+        <li>- Цщебф: <code>Яутой</code></li>
+        <br>
+        <li><strong>Моя фамилия в зашифрованном виде (Панков, ключ 10):</strong></li>
+        <li><code>ФЪУЩХ</code></li>
+    </ul>
 </div>
 </body>
 </html>
