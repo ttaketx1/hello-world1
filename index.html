@@ -20,7 +20,7 @@
             background-color: #1B1C1D;
             color: white;
             font-family: 'Roboto', sans-serif;
-            animation: fadeIn 1s ease-in-out forwards;
+            animation: fadeInOut 5s infinite alternate;
         }
 
         .container {
@@ -31,6 +31,7 @@
             background-color: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            animation: scaleUpDown 5s infinite alternate;
         }
 
         h1 {
@@ -38,7 +39,7 @@
             margin-bottom: 2rem;
             font-size: 2.5rem;
             letter-spacing: 2px;
-            animation: slideDown 1s ease-in-out forwards;
+            animation: bounce 3s infinite alternate;
         }
 
         ul {
@@ -48,7 +49,7 @@
 
         li {
             margin-bottom: 1.5rem;
-            animation: fadeInUp 1s ease-in-out forwards;
+            animation: fadeInUp 1s cubic-bezier(.1,.9,.2,1) infinite alternate;
         }
 
         strong {
@@ -62,37 +63,12 @@
             display: inline-block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to   { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInOut {
+            from { opacity: 0.5; }
+            to   { opacity: 1; }
         }
 
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to   { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Решённые шифры</h1>
-    <ul>
-        <li><strong>Ключи шифрования:</strong></li>
-        <li>- Апельсин → Сацьнвщю: <code>k = 17</code></li>
-        <li>- Абрикос → Ыьлгейм: <code>k = 28</code></li>
-        <br>
-        <li><strong>Расшифровки:</strong></li>
-        <li>- Фхнзкч: <code>Одгбжр</code></li>
-        <li>- Цщебф: <code>Яутой</code></li>
-        <br>
-        <li><strong>Моя фамилия в зашифрованном виде (Панков, ключ 10):</strong></li>
-        <li><code>ФЪУЩХ</code></li>
-    </ul>
-</div>
-</body>
-</html>
+        @keyframes scaleUpDown {
+            from { transform: scale(0.95); }
+            to   { transform: scale(1.05); }
+      
