@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Решённые шифры</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/2.0.0/jquery.twbsPagination.min.css"/>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        :root {
+            --background-color: #1E1E1E;
+            --text-color: #FFFFFF;
+            --highlight-color: #FF7F50;
+            --transition-duration: 0.5s;
+        }
 
         * {
             box-sizing: border-box;
@@ -17,10 +23,10 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #1B1C1D;
-            color: white;
+            background-color: var(--background-color);
+            color: var(--text-color);
             font-family: 'Roboto', sans-serif;
-            animation: fadeInOut 5s infinite alternate;
+            transition: all var(--transition-duration) ease-in-out;
         }
 
         .container {
@@ -31,7 +37,8 @@
             background-color: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            animation: scaleUpDown 5s infinite alternate;
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
@@ -39,7 +46,8 @@
             margin-bottom: 2rem;
             font-size: 2.5rem;
             letter-spacing: 2px;
-            animation: bounce 3s infinite alternate;
+            color: var(--highlight-color);
+            animation: pulse 3s infinite alternate;
         }
 
         ul {
@@ -49,7 +57,7 @@
 
         li {
             margin-bottom: 1.5rem;
-            animation: fadeInUp 1s cubic-bezier(.1,.9,.2,1) infinite alternate;
+            animation: fadeInUp 1s cubic-bezier(.1,.9,.2,1) both;
         }
 
         strong {
@@ -63,12 +71,77 @@
             display: inline-block;
         }
 
-        @keyframes fadeInOut {
-            from { opacity: 0.5; }
-            to   { opacity: 1; }
+        /* Красивая кнопка для перелёта */
+        button.scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--highlight-color);
+            color: var(--text-color);
+            border: none;
+            outline: none;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: all var(--transition-duration) ease-in-out;
+            visibility: hidden;
+            opacity: 0;
         }
 
-        @keyframes scaleUpDown {
-            from { transform: scale(0.95); }
+        button.scroll-top.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
             to   { transform: scale(1.05); }
-      
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Решённые шифры</h1>
+    <ul>
+        <li><strong>Ключи шифрования:</strong></li>
+        <li>- Апельсин → Сацьнвщю: <code>k = 17</code></li>
+        <li>- Абрикос → Ыьлгейм: <code>k = 28</code></li>
+        <br>
+        <li><strong>Расшифровки:</strong></li>
+        <li>- Фхнзкч: <code>Одгбжр</code></li>
+        <li>- Цщебф: <code>Яутой</code></li>
+        <br>
+        <li><strong>Моя фамилия в зашифрованном виде (Панков, ключ 10):</strong></li>
+        <li><code>ФЪУЩХ</code></li>
+    </ul>
+
+    <!-- Кнопка прокрутки вверх -->
+    <button class="scroll-top">↑</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const scrollTopButton = document.querySelector('.scroll-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollTopButton.classList.add('show');
+        } else {
+            scrollTopButton.classList.remove('show');
+        }
+    });
+
+    scrollTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
+</script>
+</body>
+</html>
