@@ -148,6 +148,54 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </body>
 </html>
-<body> 
+<body>
 <h2>20.01.2026</h2>
 </body>
+/*Разделение/*
+<!-- Две половины — встраиваемый блок -->
+<style>
+  .split-screen-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  .split-half {
+    width: 50%;
+    padding: 24px;
+    /* Уберите background, если не нужен */
+    background-color: #fafafa;
+  }
+  .split-half.left {
+    border-right: 1px solid #eee;
+    background-color: #f9f9ff;
+  }
+  .split-half.right {
+    background-color: #fff9f9;
+  }
+
+  /* Защита от горизонтального скролла */
+  @media (max-width: 768px) {
+    .split-screen-container {
+      flex-direction: column;
+    }
+    .split-half {
+      width: 100%;
+      min-height: auto;
+    }
+  }
+</style>
+
+<div class="split-screen-container">
+  <div class="split-half left">
+    <h3>Левая часть</h3>
+    <p>Замените этот текст на ваш контент.</p>
+    <!-- Ваш контент слева -->
+  </div>
+  <div class="split-half right">
+    <h3>Правая часть</h3>
+    <p>Замените этот текст на ваш контент.</p>
+    <!-- Ваш контент справа -->
+  </div>
+</div>
