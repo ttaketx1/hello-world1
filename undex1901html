@@ -1,153 +1,179 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <body>
-        <h2>19.01.2026</h2>
-    </body>
 <head>
-    <meta charset="UTF-8">
-    <title>Решённые шифры</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/2.0.0/jquery.twbsPagination.min.css "/>
-    <style>
-        :root {
-            --background-color: #1E1E1E;
-            --text-color: #FFFFFF;
-            --highlight-color: #FF7F50;
-            --transition-duration: 0.5s;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Решённые шифры</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background-color: #1E1E1E;
+      --text-color: #FFFFFF;
+      --highlight-color: #FF7F50;
+      --transition-duration: 0.5s;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            font-family: 'Roboto', sans-serif;
-            transition: all var(--transition-duration) ease-in-out;
-        }
+    body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      padding: 2rem 0;
+    }
 
-        .container {
-            width: 80%;
-            max-width: 800px;
-            padding: 2rem;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 1;
-        }
+    .page-section {
+      width: 80%;
+      max-width: 800px;
+      margin: 0 auto 4rem auto;
+      padding: 2rem;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            color: var(--highlight-color);
-            animation: pulse 3s infinite alternate;
-        }
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      letter-spacing: 1.5px;
+    }
 
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
+    h1 {
+      font-size: 2.5rem;
+      color: var(--highlight-color);
+      animation: pulse 3s infinite alternate;
+    }
 
-        li {
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 1s cubic-bezier(.1,.9,.2,1) both;
-        }
+    h2 {
+      font-size: 2rem;
+      color: var(--highlight-color);
+    }
 
-        strong {
-            font-weight: bold;
-        }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
 
-        code {
-            background-color: #2F3136;
-            padding: 0.5rem;
-            border-radius: 5px;
-            display: inline-block;
-        }
+    li {
+      margin-bottom: 1rem;
+    }
 
-        /* Красивая кнопка для перелёта */
-        button.scroll-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--highlight-color);
-            color: var(--text-color);
-            border: none;
-            outline: none;
-            cursor: pointer;
-            border-radius: 50%;
-            font-size: 24px;
-            transition: all var(--transition-duration) ease-in-out;
-            visibility: hidden;
-            opacity: 0;
-        }
+    code {
+      background-color: #2F3136;
+      padding: 0.4rem 0.6rem;
+      border-radius: 5px;
+      display: inline-block;
+      font-family: monospace;
+    }
 
-        button.scroll-top.show {
-            visibility: visible;
-            opacity: 1;
-        }
+    strong {
+      font-weight: bold;
+    }
 
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to   { transform: scale(1.05); }
-        }
+    /* Кнопка прокрутки вверх */
+    button.scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--highlight-color);
+      color: var(--text-color);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 20px;
+      transition: all var(--transition-duration) ease-in-out;
+      visibility: hidden;
+      opacity: 0;
+    }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    button.scroll-top.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to   { transform: scale(1.05); }
+    }
+
+    @media (max-width: 600px) {
+      .page-section {
+        width: 95%;
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>Решённые шифры</h1>
+
+  <!-- Секция от 19.01.2026 -->
+  <div class="page-section">
+    <h2>19.01.2026</h2>
     <ul>
-        <li><strong>Ключи шифрования:</strong></li>
-        <li>- Апельсин → Сацьнвщю: <code>k = 17</code></li>
-        <li>- Абрикос → Ыьлгейм: <code>k = 28</code></li>
-        <br>
-        <li><strong>Расшифровки:</strong></li>
-        <li>- Фхнзкч: <code>Одгбжр</code></li>
-        <li>- Цщебф: <code>Яутой</code></li>
-        <br>
-        <li><strong>Моя фамилия в зашифрованном виде (Панков, ключ 10):</strong></li>
-        <li><code>ФЪУЩХЛ</code></li>
+      <li><strong>Ключи шифрования:</strong></li>
+      <li>- Апельсин → Сацьнвщю: <code>k = 17</code></li>
+      <li>- Абрикос → Ыьлгейм: <code>k = 28</code></li>
+      <br>
+      <li><strong>Расшифровки:</strong></li>
+      <li>- Фхнзкч: <code>Одгбжр</code></li>
+      <li>- Цщебф: <code>Яутой</code></li>
+      <br>
+      <li><strong>Моя фамилия в зашифрованном виде (Панков, ключ 10):</strong></li>
+      <li><code>ФЪУЩХЛ</code></li>
     </ul>
+  </div>
 
-    <!-- Кнопка прокрутки вверх -->
-    <button class="scroll-top">↑</button>
-</div>
+  <!-- Секция от 20.01.2026 — новое задание по RSA с другими числами -->
+  <div class="page-section">
+    <h2>20.01.2026</h2>
+    <h1>Пример работы RSA</h1>
+    <ul style="margin-top: 1.5rem;">
+      <li><strong>1. Простые числа:</strong> <code>p = 7</code>, <code>q = 11</code></li>
+      <li><strong>2. n = p × q = 7 × 11 = 77</code></li>
+      <li><strong>3. φ(n) = (p−1)(q−1) = 6 × 10 = 60</code></li>
+      <li><strong>4. Выбираем e:</strong> <code>e = 13</code> (НОД(13, 60) = 1)</li>
+      <li><strong>5. Находим d:</strong> такое, что <code>(13 × d) mod 60 = 1</code> → <code>d = 37</code></li>
+      <br>
+      <li><strong>Открытый ключ:</strong> <code>(n, e) = (77, 13)</code></li>
+      <li><strong>Закрытый ключ:</strong> <code>(n, d) = (77, 37)</code></li>
+      <br>
+      <li><strong>Сообщение:</strong> <code>m = 15</code> («анализ готов»)</li>
+      <li><strong>Шифрование:</strong> <code>C = m<sup>e</sup> mod n = 15<sup>13</sup> mod 77 = 71</code></li>
+      <li><strong>Расшифровка:</strong> <code>M = C<sup>d</sup> mod n = 71<sup>37</sup> mod 77 = 15</code></li>
+      <br>
+      <li>✅ Исходное сообщение восстановлено!</li>
+      <li><em>В реальности: n — число из 600+ десятичных цифр.</em></li>
+    </ul>
+  </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const scrollTopButton = document.querySelector('.scroll-top');
+  <!-- Кнопка прокрутки вверх -->
+  <button class="scroll-top">↑</button>
 
-    window.addEventListener('scroll', () => {
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const scrollTopButton = document.querySelector('.scroll-top');
+
+      window.addEventListener('scroll', () => {
         if (window.pageYOffset > 300) {
-            scrollTopButton.classList.add('show');
+          scrollTopButton.classList.add('show');
         } else {
-            scrollTopButton.classList.remove('show');
+          scrollTopButton.classList.remove('show');
         }
-    });
+      });
 
-    scrollTopButton.addEventListener('click', () => {
+      scrollTopButton.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
-});
-</script>
+  </script>
 </body>
 </html>
-<body>
-<h2>20.01.2026</h2>
-</body>
