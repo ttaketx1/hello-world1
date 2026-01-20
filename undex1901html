@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <body>
+        <h2>19.01.2026</h2>
+    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Решённые шифры</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/2.0.0/jquery.twbsPagination.min.css "/>
+    <style>
+        :root {
+            --background-color: #1E1E1E;
+            --text-color: #FFFFFF;
+            --highlight-color: #FF7F50;
+            --transition-duration: 0.5s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
+            transition: all var(--transition-duration) ease-in-out;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            padding: 2rem;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: var(--highlight-color);
+            animation: pulse 3s infinite alternate;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s cubic-bezier(.1,.9,.2,1) both;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        code {
+            background-color: #2F3136;
+            padding: 0.5rem;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        /* Красивая кнопка для перелёта */
+        button.scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--highlight-color);
+            color: var(--text-color);
+            border: none;
+            outline: none;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: all var(--transition-duration) ease-in-out;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        button.scroll-top.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to   { transform: scale(1.05); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Решённые шифры</h1>
+    <ul>
+        <li><strong>Ключи шифрования:</strong></li>
+        <li>- Апельсин → Сацьнвщю: <code>k = 17</code></li>
+        <li>- Абрикос → Ыьлгейм: <code>k = 28</code></li>
+        <br>
+        <li><strong>Расшифровки:</strong></li>
+        <li>- Фхнзкч: <code>Одгбжр</code></li>
+        <li>- Цщебф: <code>Яутой</code></li>
+        <br>
+        <li><strong>Моя фамилия в зашифрованном виде (Панков, ключ 10):</strong></li>
+        <li><code>ФЪУЩХЛ</code></li>
+    </ul>
+
+    <!-- Кнопка прокрутки вверх -->
+    <button class="scroll-top">↑</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const scrollTopButton = document.querySelector('.scroll-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollTopButton.classList.add('show');
+        } else {
+            scrollTopButton.classList.remove('show');
+        }
+    });
+
+    scrollTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
+</script>
+</body>
+</html>
+<body>
+<h2>20.01.2026</h2>
+</body>
