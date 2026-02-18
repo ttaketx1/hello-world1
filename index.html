@@ -19,6 +19,9 @@
       font-family: 'Roboto', sans-serif;
       line-height: 1.6;
       padding: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     .page-section {
@@ -86,6 +89,7 @@
       transition: all 0.5s ease-in-out;
       visibility: hidden;
       opacity: 0;
+      z-index: 100;
     }
 
     button.scroll-top.show {
@@ -93,10 +97,69 @@
       opacity: 1;
     }
 
+    /* 🔹 Футер с предсказаниями */
+    .predictions-footer {
+      margin-top: auto;
+      background: linear-gradient(135deg, #2c1a40, #1a1a2e);
+      border-top: 3px solid #9b59b6;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .predictions-footer h3 {
+      color: #FF7F50;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+
+    .predictions-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto 1rem auto;
+      max-width: 400px;
+    }
+
+    .predictions-list li {
+      padding: 0.4rem 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+      display: flex;
+      justify-content: space-between;
+      font-family: monospace;
+    }
+
+    .predictions-list li:last-child {
+      border-bottom: none;
+    }
+
+    .predictions-list .breed {
+      color: #e0e0e0;
+      font-weight: 500;
+    }
+
+    .predictions-list .percent {
+      color: #27ae60;
+      font-weight: bold;
+    }
+
+    .footer-date {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #888;
+      font-style: italic;
+    }
+
     @media (max-width: 600px) {
       .page-section {
         width: 95%;
         padding: 1.5rem;
+      }
+      .predictions-footer {
+        padding: 1.2rem 1.5rem;
+        font-size: 1rem;
       }
     }
   </style>
@@ -286,6 +349,17 @@
       <li><em>В реальности: n — число из 600+ десятичных цифр.</em></li>
     </ul>
   </div>
+
+  <!-- 🔹 Футер с предсказаниями -->
+  <footer class="predictions-footer">
+    <h3>Топ-3 предсказаний:</h3>
+    <ul class="predictions-list">
+      <li><span class="breed">pug</span><span class="percent">89.09%</span></li>
+      <li><span class="breed">Griffon Bruxellois</span><span class="percent">9.61%</span></li>
+      <li><span class="breed">Pekingese</span><span class="percent">0.66%</span></li>
+    </ul>
+    <span class="footer-date">📅 18.02.2026</span>
+  </footer>
 
   <!-- Кнопка прокрутки вверх -->
   <button class="scroll-top">↑</button>
