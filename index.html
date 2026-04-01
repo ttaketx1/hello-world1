@@ -72,6 +72,82 @@
       font-weight: bold;
     }
 
+    /* 🔹 Новая секция: Логика и ошибки */
+    .logic-section {
+      width: 80%;
+      max-width: 800px;
+      margin: 0 auto 4rem auto;
+      padding: 2rem;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .error-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .error-table th,
+    .error-table td {
+      padding: 0.75rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .error-table th {
+      color: #FF7F50;
+      font-weight: 600;
+      background: rgba(255, 127, 80, 0.1);
+    }
+
+    .error-table tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .error-value.positive {
+      color: #27ae60;
+      font-weight: bold;
+    }
+
+    .error-value.negative {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    .logic-steps {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .logic-steps li {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .logic-steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background: #FF7F50;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
     /* Кнопка прокрутки вверх */
     button.scroll-top {
       position: fixed;
@@ -153,13 +229,21 @@
     }
 
     @media (max-width: 600px) {
-      .page-section {
+      .page-section,
+      .logic-section {
         width: 95%;
         padding: 1.5rem;
       }
       .predictions-footer {
         padding: 1.2rem 1.5rem;
         font-size: 1rem;
+      }
+      .error-table {
+        font-size: 0.85rem;
+      }
+      .error-table th,
+      .error-table td {
+        padding: 0.5rem;
       }
     }
   </style>
@@ -349,6 +433,70 @@
       <li><em>В реальности: n — число из 600+ десятичных цифр.</em></li>
     </ul>
   </div>
+
+  <!-- 🔹 НОВАЯ СЕКЦИЯ: Логика работы и метрики ошибок -->
+  <section class="logic-section">
+    <h2>📊 Логика работы и метрики ошибок</h2>
+    
+    <h3 style="color: #FF7F50; margin: 1.5rem 0 1rem;">📉 Значения изменения ошибок</h3>
+    <table class="error-table">
+      <thead>
+        <tr>
+          <th>Итерация</th>
+          <th>Ошибка (Loss)</th>
+          <th>Δ (изменение)</th>
+          <th>Точность</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>2.451</td>
+          <td class="error-value negative">—</td>
+          <td>31.2%</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>1.893</td>
+          <td class="error-value positive">−0.558</td>
+          <td>48.7%</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>1.204</td>
+          <td class="error-value positive">−0.689</td>
+          <td>67.3%</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>0.781</td>
+          <td class="error-value positive">−0.423</td>
+          <td>81.5%</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>0.512</td>
+          <td class="error-value positive">−0.269</td>
+          <td>92.1%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="color: #FF7F50; margin: 1.5rem 0 1rem;">⚙️ Объяснение логики работы</h3>
+    <ol class="logic-steps">
+      <li><strong>Инициализация:</strong> загрузка данных, нормализация признаков, разделение на обучающую/тестовую выборки.</li>
+      <li><strong>Прямой проход:</strong> вычисление предсказаний модели на основе текущих весов и входных данных.</li>
+      <li><strong>Расчёт ошибки:</strong> использование функции потерь (например, кросс-энтропия) для оценки отклонения предсказаний от истинных значений.</li>
+      <li><strong>Обратное распространение:</strong> вычисление градиентов функции потерь по всем параметрам модели с помощью цепного правила.</li>
+      <li><strong>Обновление весов:</strong> применение оптимизатора (Adam/SGD) для корректировки параметров в направлении, уменьшающем ошибку.</li>
+      <li><strong>Валидация:</strong> оценка качества на тестовых данных после каждой эпохи для контроля переобучения.</li>
+      <li><strong>Завершение:</strong> остановка при достижении критериев (макс. эпохи, сходимость ошибки, ранняя остановка).</li>
+    </ol>
+
+    <p style="margin-top: 1.5rem; font-style: italic; color: #aaa;">
+      💡 <em>Значения Δ показывают динамику: отрицательное изменение — снижение ошибки (улучшение модели), положительное — рост (требуется настройка гиперпараметров).</em>
+    </p>
+  </section>
 
   <!-- 🔹 Футер с предсказаниями -->
   <footer class="predictions-footer">
