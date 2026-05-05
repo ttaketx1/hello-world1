@@ -203,6 +203,16 @@
       display: block;
     }
 
+    .answer-date {
+      display: block;
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #FF7F50;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
     /* Кнопка прокрутки вверх */
     button.scroll-top {
       position: fixed;
@@ -453,7 +463,122 @@
     </div>
   </div>
 
-  <!-- 🔢 ОТВЕТЫ НА КРОССВОРД ПО СИСТЕМАМ СЧИСЛЕНИЯ -->
+  <!-- 🔐 Шифры — 19.01.2026 -->
+  <div class="page-section">
+    <h2>19.01.2026</h2>
+    <ul>
+      <li><strong>Ключи шифрования:</strong></li>
+      <li>- Апельсин → Сацьнвщю: <code>k = 17</code></li>
+      <li>- Абрикос → Ыьлгейм: <code>k = 28</code></li>
+      <br>
+      <li><strong>Расшифровки:</strong></li>
+      <li>- Фхнзкч: <code>Одгбжр</code></li>
+      <li>- Цщебф: <code>Яутой</code></li>
+      <br>
+      <li><strong>Моя фамилия в зашифрованном виде (Панков, ключ 10):</strong></li>
+      <li><code>ФЪУЩХЛ</code></li>
+    </ul>
+  </div>
+
+  <!-- 🔑 RSA — 20.01.2026 -->
+  <div class="page-section">
+    <h2>20.01.2026</h2>
+    <h1>Пример работы RSA</h1>
+    <ul style="margin-top: 1.5rem;">
+      <li><strong>1. Простые числа:</strong> <code>p = 7</code>, <code>q = 11</code></li>
+      <li><strong>2. n = p × q = 7 × 11 = 77</code></li>
+      <li><strong>3. φ(n) = (p−1)(q−1) = 6 × 10 = 60</code></li>
+      <li><strong>4. Выбираем e:</strong> <code>e = 13</code> (НОД(13, 60) = 1 → ✅)</li>
+      <li><strong>5. Находим d:</strong> такое, что <code>(13 × d) mod 60 = 1</code> → <code>d = 37</code></li>
+      <br>
+      <li><strong>Открытый ключ:</strong> <code>(n, e) = (77, 13)</code></li>
+      <li><strong>Закрытый ключ:</strong> <code>(n, d) = (77, 37)</code></li>
+      <br>
+      <li><strong>Сообщение:</strong> <code>m = 15</code> («анализ готов»)</li>
+      <li><strong>Шифрование:</strong> <code>C = m<sup>e</sup> mod n = 15<sup>13</sup> mod 77 = 71</code></li>
+      <li><strong>Расшифровка:</strong> <code>M = C<sup>d</sup> mod n = 71<sup>37</sup> mod 77 = 15</code></li>
+      <br>
+      <li>Исходное сообщение восстановлено!</li>
+      <li><em>В реальности: n — число из 600+ десятичных цифр.</em></li>
+    </ul>
+  </div>
+
+  <!-- 🔹 НОВАЯ СЕКЦИЯ: Логика работы и метрики ошибок -->
+  <section class="logic-section">
+    <h2>📊 Логика работы и метрики ошибок</h2>
+    
+    <h3 style="color: #FF7F50; margin: 1.5rem 0 1rem;">📉 Значения изменения ошибок</h3>
+    <table class="error-table">
+      <thead>
+        <tr>
+          <th>Итерация</th>
+          <th>Ошибка (Loss)</th>
+          <th>Δ (изменение)</th>
+          <th>Точность</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>2.451</td>
+          <td class="error-value negative">—</td>
+          <td>31.2%</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>1.893</td>
+          <td class="error-value positive">−0.558</td>
+          <td>48.7%</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>1.204</td>
+          <td class="error-value positive">−0.689</td>
+          <td>67.3%</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>0.781</td>
+          <td class="error-value positive">−0.423</td>
+          <td>81.5%</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>0.512</td>
+          <td class="error-value positive">−0.269</td>
+          <td>92.1%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="color: #FF7F50; margin: 1.5rem 0 1rem;">⚙️ Объяснение логики работы</h3>
+    <ol class="logic-steps">
+      <li><strong>Инициализация:</strong> загрузка данных, нормализация признаков, разделение на обучающую/тестовую выборки.</li>
+      <li><strong>Прямой проход:</strong> вычисление предсказаний модели на основе текущих весов и входных данных.</li>
+      <li><strong>Расчёт ошибки:</strong> использование функции потерь (например, кросс-энтропия) для оценки отклонения предсказаний от истинных значений.</li>
+      <li><strong>Обратное распространение:</strong> вычисление градиентов функции потерь по всем параметрам модели с помощью цепного правила.</li>
+      <li><strong>Обновление весов:</strong> применение оптимизатора (Adam/SGD) для корректировки параметров в направлении, уменьшающем ошибку.</li>
+      <li><strong>Валидация:</strong> оценка качества на тестовых данных после каждой эпохи для контроля переобучения.</li>
+      <li><strong>Завершение:</strong> остановка при достижении критериев (макс. эпохи, сходимость ошибки, ранняя остановка).</li>
+    </ol>
+
+    <p style="margin-top: 1.5rem; font-style: italic; color: #aaa;">
+      💡 <em>Значения Δ показывают динамику: отрицательное изменение — снижение ошибки (улучшение модели), положительное — рост (требуется настройка гиперпараметров).</em>
+    </p>
+  </section>
+
+  <!-- 🔹 Футер с предсказаниями -->
+  <footer class="predictions-footer">
+    <h3>Топ-3 предсказаний:</h3>
+    <ul class="predictions-list">
+      <li><span class="breed">pug</span><span class="percent">89.09%</span></li>
+      <li><span class="breed">Griffon Bruxellois</span><span class="percent">9.61%</span></li>
+      <li><span class="breed">Pekingese</span><span class="percent">0.66%</span></li>
+    </ul>
+    <span class="footer-date">📅 18.02.2026</span>
+  </footer>
+
+  <!-- 🔢 ОТВЕТЫ НА КРОССВОРД ПО СИСТЕМАМ СЧИСЛЕНИЯ — В САМОМ НИЗУ -->
   <section class="crossword-answers">
     <h2>✅ Ответы: Кроссворд «Системы счисления»</h2>
     
@@ -590,122 +715,9 @@
     <p style="margin-top: 2rem; font-style: italic; color: #aaa; text-align: center;">
       💡 <em>Все ответы проверены. Для заполнения кроссворда в LibreOffice Calc вписывайте значения в соответствующие клетки согласно нумерации.</em>
     </p>
-  </section>
-
-  <!-- 🔐 Шифры — 19.01.2026 -->
-  <div class="page-section">
-    <h2>19.01.2026</h2>
-    <ul>
-      <li><strong>Ключи шифрования:</strong></li>
-      <li>- Апельсин → Сацьнвщю: <code>k = 17</code></li>
-      <li>- Абрикос → Ыьлгейм: <code>k = 28</code></li>
-      <br>
-      <li><strong>Расшифровки:</strong></li>
-      <li>- Фхнзкч: <code>Одгбжр</code></li>
-      <li>- Цщебф: <code>Яутой</code></li>
-      <br>
-      <li><strong>Моя фамилия в зашифрованном виде (Панков, ключ 10):</strong></li>
-      <li><code>ФЪУЩХЛ</code></li>
-    </ul>
-  </div>
-
-  <!-- 🔑 RSA — 20.01.2026 -->
-  <div class="page-section">
-    <h2>20.01.2026</h2>
-    <h1>Пример работы RSA</h1>
-    <ul style="margin-top: 1.5rem;">
-      <li><strong>1. Простые числа:</strong> <code>p = 7</code>, <code>q = 11</code></li>
-      <li><strong>2. n = p × q = 7 × 11 = 77</code></li>
-      <li><strong>3. φ(n) = (p−1)(q−1) = 6 × 10 = 60</code></li>
-      <li><strong>4. Выбираем e:</strong> <code>e = 13</code> (НОД(13, 60) = 1 → ✅)</li>
-      <li><strong>5. Находим d:</strong> такое, что <code>(13 × d) mod 60 = 1</code> → <code>d = 37</code></li>
-      <br>
-      <li><strong>Открытый ключ:</strong> <code>(n, e) = (77, 13)</code></li>
-      <li><strong>Закрытый ключ:</strong> <code>(n, d) = (77, 37)</code></li>
-      <br>
-      <li><strong>Сообщение:</strong> <code>m = 15</code> («анализ готов»)</li>
-      <li><strong>Шифрование:</strong> <code>C = m<sup>e</sup> mod n = 15<sup>13</sup> mod 77 = 71</code></li>
-      <li><strong>Расшифровка:</strong> <code>M = C<sup>d</sup> mod n = 71<sup>37</sup> mod 77 = 15</code></li>
-      <br>
-      <li>Исходное сообщение восстановлено!</li>
-      <li><em>В реальности: n — число из 600+ десятичных цифр.</em></li>
-    </ul>
-  </div>
-
-  <!-- 🔹 НОВАЯ СЕКЦИЯ: Логика работы и метрики ошибок -->
-  <section class="logic-section">
-    <h2>📊 Логика работы и метрики ошибок</h2>
     
-    <h3 style="color: #FF7F50; margin: 1.5rem 0 1rem;">📉 Значения изменения ошибок</h3>
-    <table class="error-table">
-      <thead>
-        <tr>
-          <th>Итерация</th>
-          <th>Ошибка (Loss)</th>
-          <th>Δ (изменение)</th>
-          <th>Точность</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>2.451</td>
-          <td class="error-value negative">—</td>
-          <td>31.2%</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>1.893</td>
-          <td class="error-value positive">−0.558</td>
-          <td>48.7%</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>1.204</td>
-          <td class="error-value positive">−0.689</td>
-          <td>67.3%</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>0.781</td>
-          <td class="error-value positive">−0.423</td>
-          <td>81.5%</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>0.512</td>
-          <td class="error-value positive">−0.269</td>
-          <td>92.1%</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3 style="color: #FF7F50; margin: 1.5rem 0 1rem;">⚙️ Объяснение логики работы</h3>
-    <ol class="logic-steps">
-      <li><strong>Инициализация:</strong> загрузка данных, нормализация признаков, разделение на обучающую/тестовую выборки.</li>
-      <li><strong>Прямой проход:</strong> вычисление предсказаний модели на основе текущих весов и входных данных.</li>
-      <li><strong>Расчёт ошибки:</strong> использование функции потерь (например, кросс-энтропия) для оценки отклонения предсказаний от истинных значений.</li>
-      <li><strong>Обратное распространение:</strong> вычисление градиентов функции потерь по всем параметрам модели с помощью цепного правила.</li>
-      <li><strong>Обновление весов:</strong> применение оптимизатора (Adam/SGD) для корректировки параметров в направлении, уменьшающем ошибку.</li>
-      <li><strong>Валидация:</strong> оценка качества на тестовых данных после каждой эпохи для контроля переобучения.</li>
-      <li><strong>Завершение:</strong> остановка при достижении критериев (макс. эпохи, сходимость ошибки, ранняя остановка).</li>
-    </ol>
-
-    <p style="margin-top: 1.5rem; font-style: italic; color: #aaa;">
-      💡 <em>Значения Δ показывают динамику: отрицательное изменение — снижение ошибки (улучшение модели), положительное — рост (требуется настройка гиперпараметров).</em>
-    </p>
+    <span class="answer-date">📅 5.05.2026</span>
   </section>
-
-  <!-- 🔹 Футер с предсказаниями -->
-  <footer class="predictions-footer">
-    <h3>Топ-3 предсказаний:</h3>
-    <ul class="predictions-list">
-      <li><span class="breed">pug</span><span class="percent">89.09%</span></li>
-      <li><span class="breed">Griffon Bruxellois</span><span class="percent">9.61%</span></li>
-      <li><span class="breed">Pekingese</span><span class="percent">0.66%</span></li>
-    </ul>
-    <span class="footer-date">📅 18.02.2026</span>
-  </footer>
 
   <!-- Кнопка прокрутки вверх -->
   <button class="scroll-top">↑</button>
