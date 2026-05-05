@@ -148,6 +148,61 @@
       font-size: 0.9rem;
     }
 
+    /* 🔹 Секция ответов на кроссворд */
+    .crossword-answers {
+      width: 80%;
+      max-width: 900px;
+      margin: 0 auto 4rem auto;
+      padding: 2rem;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .answers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .answers-column h3 {
+      color: #27ae60;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #FF7F50;
+    }
+
+    .answer-item {
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .answer-item:last-child {
+      border-bottom: none;
+    }
+
+    .answer-number {
+      color: #f1c40f;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+
+    .answer-value {
+      color: #3498db;
+      font-family: monospace;
+      font-weight: 500;
+    }
+
+    .answer-hint {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-left: 1.5rem;
+      display: block;
+    }
+
     /* Кнопка прокрутки вверх */
     button.scroll-top {
       position: fixed;
@@ -230,7 +285,8 @@
 
     @media (max-width: 600px) {
       .page-section,
-      .logic-section {
+      .logic-section,
+      .crossword-answers {
         width: 95%;
         padding: 1.5rem;
       }
@@ -244,6 +300,9 @@
       .error-table th,
       .error-table td {
         padding: 0.5rem;
+      }
+      .answers-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -393,6 +452,145 @@
       </div>
     </div>
   </div>
+
+  <!-- 🔢 ОТВЕТЫ НА КРОССВОРД ПО СИСТЕМАМ СЧИСЛЕНИЯ -->
+  <section class="crossword-answers">
+    <h2>✅ Ответы: Кроссворд «Системы счисления»</h2>
+    
+    <div class="answers-grid">
+      <div class="answers-column">
+        <h3>➡️ По горизонтали</h3>
+        <div class="answer-item">
+          <span class="answer-number">1.</span>
+          <span class="answer-value">1461</span>
+          <span class="answer-hint">10110110101₂ → 1461₁₀</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">3.</span>
+          <span class="answer-value">1101</span>
+          <span class="answer-hint">13₁₀ → 1101₂ («чёртова дюжина»)</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">6.</span>
+          <span class="answer-value">1011011</span>
+          <span class="answer-hint">91₁₀ → 1011011₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">7.</span>
+          <span class="answer-value">1100</span>
+          <span class="answer-hint">111₂ + 101₂ = 7+5 = 12 → 1100₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">9.</span>
+          <span class="answer-value">1010</span>
+          <span class="answer-hint">110010₂ : 101₂ = 50:5 = 10 → 1010₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">11.</span>
+          <span class="answer-value">110000010</span>
+          <span class="answer-hint">¼ Кб + ⅛ Кб + 2 байта = 386 → 110000010₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">14.</span>
+          <span class="answer-value">1011</span>
+          <span class="answer-hint">11₁₀ → 1011₂ («барабанные палочки»)</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">16.</span>
+          <span class="answer-value">1111</span>
+          <span class="answer-hint">30₁₀ : 10₂ = 30:2 = 15 → 1111₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">18.</span>
+          <span class="answer-value">100001</span>
+          <span class="answer-hint">Палиндром: 100001₂ = 33₁₀</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">19.</span>
+          <span class="answer-value">1001</span>
+          <span class="answer-hint">1111101001₂ → 1001₁₀</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">20.</span>
+          <span class="answer-value">1100</span>
+          <span class="answer-hint">10001001100₂ → 1100₁₀</span>
+        </div>
+      </div>
+
+      <div class="answers-column">
+        <h3>⬇️ По вертикали</h3>
+        <div class="answer-item">
+          <span class="answer-number">1.</span>
+          <span class="answer-value">10101</span>
+          <span class="answer-hint">21₁₀ → 10101₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">2.</span>
+          <span class="answer-value">10010</span>
+          <span class="answer-hint">1001₂ × 2₁₀ = 9×2 = 18 → 10010₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">3.</span>
+          <span class="answer-value">10101</span>
+          <span class="answer-hint">11100₂ - 111₂ = 28-7 = 21 → 10101₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">4.</span>
+          <span class="answer-value">111100</span>
+          <span class="answer-hint">Полтора пуда (60 фунтов) → 111100₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">5.</span>
+          <span class="answer-value">11001010001</span>
+          <span class="answer-hint">1617₁₀ → 11001010001₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">8.</span>
+          <span class="answer-value">10</span>
+          <span class="answer-hint">100001₂ : 1101₂ = 33:13 ≈ 2 → 10₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">10.</span>
+          <span class="answer-value">100</span>
+          <span class="answer-hint">Век = 100 лет</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">12.</span>
+          <span class="answer-value">101</span>
+          <span class="answer-hint">Высшая оценка (5) → 101₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">13.</span>
+          <span class="answer-value">111</span>
+          <span class="answer-hint">Макс. трёхзначное двоичное = 111₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">14.</span>
+          <span class="answer-value">10</span>
+          <span class="answer-hint">111₂ : 11₂ = 7:3 ≈ 2 → 10₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">15.</span>
+          <span class="answer-value">11001</span>
+          <span class="answer-hint">5² = 25 → 11001₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">16.</span>
+          <span class="answer-value">11011</span>
+          <span class="answer-hint">1110₂ + 1101₂ = 14+13 = 27 → 11011₂</span>
+        </div>
+        <div class="answer-item">
+          <span class="answer-number">17.</span>
+          <span class="answer-value">10010</span>
+          <span class="answer-hint">18₁₀ → 10010₂</span>
+        </div>
+      </div>
+    </div>
+    
+    <p style="margin-top: 2rem; font-style: italic; color: #aaa; text-align: center;">
+      💡 <em>Все ответы проверены. Для заполнения кроссворда в LibreOffice Calc вписывайте значения в соответствующие клетки согласно нумерации.</em>
+    </p>
+  </section>
 
   <!-- 🔐 Шифры — 19.01.2026 -->
   <div class="page-section">
